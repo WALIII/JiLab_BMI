@@ -3,7 +3,7 @@ clear all
 np = 512; % pixel resolution
 fr = 15; % frame rate hz
 nf = 10000; % number of frames
-fname = 'E:\Kevin\20200226\test1_033\Image_001_001.raw';
+fname = 'E:\Kevin\20200226\test1_039\Image_001_001.raw';
 fileID = -1;
 % continue waiting for file to be created
 while fileID < 0
@@ -45,15 +45,15 @@ while toc(tStart) < 10000
             out_pixel2 = cat(1,out_pixel2, out_pixel);
             out_pixel_z = zscore(out_pixel2);
             val = out_pixel_z(end);
-            if val>2.5 && toc(trigger_time)>0.2
+            if val>2.5 %&& toc(trigger_time)>0.2
                 t = t+1;
                 disp(['TRIGGER' num2str(t)]);
-                fdbk = 1;
-                while fbdk
-                    fprint( arduino, '%c',char(99));
-                    fbdk = 0;
-                end
-                trigger_time = tic; % debounce
+%                 fdbk = 1;
+%                 while fbdk
+%                     fprint( arduino, '%c',char(99));
+%                     fbdk = 0;
+%                 end
+             %   trigger_time = tic; % debounce
             end
             
             
