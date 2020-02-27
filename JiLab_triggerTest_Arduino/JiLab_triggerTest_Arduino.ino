@@ -40,7 +40,7 @@ void loop() {
    if (melody == 99){
    int currentMillis = millis();
     digitalWrite(13, HIGH);
-delay(500);
+delay(10);
     digitalWrite(13, LOW);
    }
    }
