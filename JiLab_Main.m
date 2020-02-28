@@ -1,4 +1,8 @@
 function JiLab_Main(arduino,fname)
+% JiLab_Main.m
+
+% Main function for delegating BMI scripts
+
 
 np = 512; % pixel resolution
 fr = 15; % frame rate hz
@@ -13,7 +17,6 @@ while fileID < 0
 end
 t = 0;
 h = animatedline;
-%axis([0,100,0,1])
 
 % timing counters...
 tStart = tic;
@@ -22,7 +25,6 @@ trigger_time = tic;
 
 i = 0;
 counter = 1;
-frame_idx = 1;
 out_pixel2 = [];
 while toc(tStart) < max_time;
     if toc(cursorTic) > 1/fr
@@ -34,13 +36,13 @@ while toc(tStart) < max_time;
         out = find(means==0,1);
         if out == 1
         else
+
 % ============================= [ BMI SECTION]  ============================= %
             % Main BMI function:
             data.toc(counter) = toc(tStart); % how often are we waiting per frame. For timeing rconstruction
             [CURSOR, data] = JiLab_Cursor(data(:,:,out-1),ROI,data,counter)
 
 % ============================= [ Water Delivery]  ============================= %
-
 
              data.hit(counter) =0; % hit counter
             if condition == 1; % reward eligibility
