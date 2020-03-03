@@ -10,6 +10,13 @@ nf = 10000; % number of frames
 fileID = -1;
 max_time = 10000;
 
+% Initialize workspace variables
+BMI_Data.condition = 1;
+BMI_Data.time = [];
+BMI_Data.Frame = zeros(515,512);
+BMI_Data.frame_idx = 1;
+BMI_Data.Tstart = tic; % timing vector
+
 % continue waiting for file to be created
 while fileID < 0
     fileID = fopen(fname,'r','l');
@@ -37,37 +44,51 @@ while toc(tStart) < max_time;
         if out == 1
         else
 
+
+
+% ============================= [ PICK ROIS ]  ============================= %
+disp('Take Baseline Data...')
+[I, M, ROI, ccimage] = CaBMI_Dendrites;
+BMI_Data.ROI = ROI;
+BMI_Data.ccimage = ccimage;
+
+
 % ============================= [ BMI SECTION]  ============================= %
             % Main BMI function:
+            BMI_Data.BMIready ==1
             data.toc(counter) = toc(tStart); % how often are we waiting per frame. For timeing rconstruction
-            [CURSOR, data] = JiLab_Cursor(data(:,:,out-1),ROI,data,counter)
+
+            [CURSOR, BMI_Data] = JiLab_Cursor(BMI_Data,data(:,:,out-1),counter)
+
 
 % ============================= [ Water Delivery]  ============================= %
 
-             data.hit(counter) =0; % hit counter
-            if condition == 1; % reward eligibility
-            if data.cursor(:,1)> 2.5
-                Cursor_A = 999;
-                disp('HIT')
-                condition = 2;
-                data.hit(counter) =1;
-            end
-            elseif condition == 2
-              disp(' Waiting to drop below threshold...')
-              data.hit(counter) =-1;
-              if data.cursor(:,1)<1
-                disp ( 'Resetting Cursor')
-                condition = 1;
-              end
-            end
 
+if BMI_Data.condition == 1; % reward eligibility
+    if CURSOR> 2.5
+        fdbk = 1;
+        while fdbk
+            disp('HIT!');
+            BMI_Data.condition = 2;
+
+            fprintf(arduino,'%c',char(99)); % send answer variable content to arduino
+            fdbk = 0;
+        end
+    end
+elseif BMI_Data.condition == 2
+    disp(' Waiting to drop below threshold...')
+    if CURSOR<1
+        disp ( 'Resetting Cursor')
+        BMI_Data.condition = 1;
+    end
+end
 % ============================= [ Arduino Communication]  ============================= %
 
 
 %             out_pixel =  mean(data(:,:,out-1),'all');
 %
-% %             addpoints(h,i,out_pixel);
-% %             drawnow
+           addpoints(h,i,CURSOR);
+          drawnow
 %
 %             % trigger things:
 %
