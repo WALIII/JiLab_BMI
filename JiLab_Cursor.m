@@ -24,13 +24,13 @@ dsample_fact = 1;
           end
 
           for i = 1:4; % TO DO: why does the index start ar 2??
-              BMI_Data.ROI_dff(i,:) = (BMI_Data.ROI_val(i,1:end)-baseline(i,:))./baseline(i,:)*100;
+              ROI_dff(i,:) = (BMI_Data.ROI_val(i,1:end)-baseline(i,:))./baseline(i,:)*100;
               % normalize
-              BMI_Data.ROI_norm(i,:) = (BMI_Data.ROI_dff(i,:) - mean(BMI_Data.ROI_dff(i,:)))/std(BMI_Data.ROI_dff(i,:));
+              ROI_norm(i,:) = (ROI_dff(i,:) - mean(ROI_dff(i,:)))/std(ROI_dff(i,:));
           end
 
           % Calculate Cursor
-          BMI_Data.cursor(:,frame_idx) = BMI_Data.ROI_norm(1,frame_idx)+BMI_Data.ROI_norm(2,frame_idx) - (BMI_Data.ROI_norm(3,frame_idx)+BMI_Data.ROI_norm(4,frame_idx));
+          BMI_Data.cursor(:,frame_idx) = ROI_norm(1,frame_idx)+ROI_norm(2,frame_idx) - (ROI_norm(3,frame_idx)+ROI_norm(4,frame_idx));
 
           % Smooth cursor
           if frame_idx>3;
@@ -44,5 +44,6 @@ dsample_fact = 1;
 
           BMI_Data.CURSOR = CURSOR;
           CURSOR  % Print cursor value
+          BMI_Data.ROI_norm = ROI_norm;
       end
   end

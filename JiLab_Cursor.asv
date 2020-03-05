@@ -1,5 +1,5 @@
 
-  function   [CURSOR, BMI_Data,ROI_OUT] = JiLab_Cursor(BMI_Data,Im,frame_idx)
+  function   [CURSOR, BMI_Data] = JiLab_Cursor(BMI_Data,Im,frame_idx)
   % Cursor for Ji Lab experiments
 
   % WAL3's cursor for the BMI experiments
@@ -24,9 +24,9 @@ dsample_fact = 1;
           end
 
           for i = 1:4; % TO DO: why does the index start ar 2??
-              BMI_Data.ROI_dff(i,:) = (BMI_Data.ROI_val(i,1:end)-baseline(i,:))./baseline(i,:)*100;
+              ROI_dff(i,:) = (BMI_Data.ROI_val(i,1:end)-baseline(i,:))./baseline(i,:)*100;
               % normalize
-              BMI_Data.ROI_norm(i,:) = (BMI_Data.ROI_dff(i,:) - mean(BMI_Data.ROI_dff(i,:)))/std(BMI_DataROI_dff(i,:));
+              ROI_norm(i,:) = (ROI_dff(i,:) - mean(ROI_dff(i,:)))/std(ROI_dff(i,:));
           end
 
           % Calculate Cursor
@@ -44,6 +44,6 @@ dsample_fact = 1;
 
           BMI_Data.CURSOR = CURSOR;
           CURSOR  % Print cursor value
-          ROI_OUT =  ROI_norm;
+          BMI_Data.ROI_norm = ROI_norm
       end
   end

@@ -1,4 +1,4 @@
-function JiLab_Main(arduino,fname,BMI_Data)
+    function [BMI_Data] = JiLab_Main(arduino,fname,BMI_Data)
 % JiLab_Main.m
 
 % Main function for delegating BMI scripts
@@ -23,11 +23,11 @@ while fileID < 0
     pause(0.1)
 end
 t = 0;
-h = animatedline;
-h1 = animatedline;
-h2 = animatedline;
-h3 = animatedline;
-h4 = animatedline;
+h = animatedline('Color','k','LineWidth',3);
+h1 = animatedline('Color','g','LineWidth',1);
+h2 = animatedline('Color','g','LineWidth',1);
+h3 = animatedline('Color','r','LineWidth',1);
+h4 = animatedline('Color','r','LineWidth',1);
 
 % timing counters...
 tStart = tic;
@@ -85,13 +85,13 @@ end
  
            addpoints(h,i,double(CURSOR));
 
-      addpoints(h1,i,BMI_Data.ROI_norm(1,counter)+2) 
-      addpoints(h2,i,BMI_Data.ROI_norm(2,counter)+4) 
-      addpoints(h3,i,BMI_Data.ROI_norm(3,counter)-2) 
-      addpoints(h4,i,BMI_Data.ROI_norm(4,counter)-4) 
+      addpoints(h1,i,double(BMI_Data.ROI_norm(1,counter))+2);
+      addpoints(h2,i,double(BMI_Data.ROI_norm(2,counter))+4);
+      addpoints(h3,i,double(BMI_Data.ROI_norm(3,counter))-2);
+      addpoints(h4,i,double(BMI_Data.ROI_norm(4,counter))-4);
       drawnow update 
           drawnow
-%
+%   
 %             % trigger things:
 %
 %             % running zscore of data
