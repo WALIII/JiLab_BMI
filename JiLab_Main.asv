@@ -24,10 +24,6 @@ while fileID < 0
 end
 t = 0;
 h = animatedline;
-h1 = animatedline;
-h2 = animatedline;
-h3 = animatedline;
-h4 = animatedline;
 
 % timing counters...
 tStart = tic;
@@ -85,11 +81,12 @@ end
  
            addpoints(h,i,double(CURSOR));
 
-      addpoints(h1,i,BMI_Data.ROI_norm(1,counter)+2) 
-      addpoints(h2,i,BMI_Data.ROI_norm(2,counter)+4) 
-      addpoints(h3,i,BMI_Data.ROI_norm(3,counter)-2) 
-      addpoints(h4,i,BMI_Data.ROI_norm(4,counter)-4) 
+      addpoints(h1,i,Ca(k)) 
+      addpoints(h2,i,Ca(k)) 
+       addpoints(h3,i,Ca(k)) 
+        addpoints(h4,i,Ca(k)) 
       drawnow update 
+    end
           drawnow
 %
 %             % trigger things:
