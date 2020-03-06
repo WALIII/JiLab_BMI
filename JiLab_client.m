@@ -10,4 +10,4 @@ fopen(t);
 data(1) = 50; data(2) = 0; data(3) = 1; fwrite(t,data)
 
 % close connection
-fclose((t);
+fclose(t);
