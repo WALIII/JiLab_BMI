@@ -4,7 +4,7 @@ function [BMI_Data] = JiLab_Main(arduino,fname,BMI_Data,t)
 % Main function for delegating BMI scripts
 
 
-np = 512; % pixel resolution
+np = size(BMI_Data.ccimage,1)%512; % pixel resolution
 fr = 15; % frame rate hz
 nf = 10000; % number of frames
 fileID = -1;
@@ -28,6 +28,7 @@ h1 = animatedline('Color','g','LineWidth',1);
 h2 = animatedline('Color','g','LineWidth',1);
 h3 = animatedline('Color','r','LineWidth',1);
 h4 = animatedline('Color','r','LineWidth',1);
+
 
 % timing counters...
 tStart = tic;
@@ -53,6 +54,7 @@ while toc(tStart) < max_time;
             % Main BMI function:
             BMI_Data.BMIready =1;
             BMI_Data.time_idx(counter) = toc(tStart); % how often are we waiting per frame. For timeing rconstruction
+
             
             [CURSOR, BMI_Data] = JiLab_Cursor(BMI_Data,data(:,:,out-1),counter);
             
@@ -115,6 +117,7 @@ while toc(tStart) < max_time;
             %             end
             
             
+
         end
         % ============================= [ Timing Ratchet ]  ============================= %
         
