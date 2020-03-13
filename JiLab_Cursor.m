@@ -30,7 +30,7 @@ dsample_fact = 1;
           end
 
           % Calculate Cursor
-          BMI_Data.cursor(:,frame_idx) = ROI_norm(1,frame_idx)+ROI_norm(2,frame_idx) - (ROI_norm(3,frame_idx)+ROI_norm(4,frame_idx));
+          BMI_Data.cursor(:,frame_idx) = ROI_norm(1,frame_idx)+ROI_norm(2,frame_idx);% - (ROI_norm(3,frame_idx)+ROI_norm(4,frame_idx));
 
           % Smooth cursor
           if frame_idx>3;

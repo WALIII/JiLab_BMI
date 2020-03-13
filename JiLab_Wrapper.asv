@@ -25,7 +25,7 @@ BMI_Data.ROI = ROI;
 BMI_Data.ccimage = ccimage;
 
 
-    fname = 'E:\Kevin\20200313\test\test1_001\Image_001_001.raw';
+    fname = 'E:\Kevin\20200313\test\test1_006\Image_001_001.raw';
     [BMI_Data] = JiLab_Main(arduino,fname,BMI_Data,t);
 catch
     fclose(arduino);
